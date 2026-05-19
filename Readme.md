@@ -22,35 +22,64 @@ Frontend	React 18 + Vite + Tailwind → Nginx	UI + proxy to backend
 Backend	Python FastAPI	REST API + business logic
 Database	PostgreSQL 15-alpine	Persistent storage
 Containers	Docker Compose	Service orchestration
+
 📂 Project Structure
+
 billing-erp/
+
 │   docker-compose.yml
+
 │
+
 ├── backend/
+
 │   ├── main.py
+
 │   ├── auth.py
+
 │   ├── items.py
+
 │   ├── customers.py
+
 │   ├── bills.py
+
 │   ├── stock.py
+
 │   ├── database.py
+
 │   ├── middleware.py
+
 │   └── requirements.txt
+
 │
+
 ├── frontend/
+
 │   ├── src/
+
 │   ├── Dockerfile
+
 │   └── nginx.conf
+
 │
+
+
 └── database/
     └── schema/
+
         ├── 01_users.sql
+        
         ├── 02_items.sql
         ├── 03_customers.sql
+        
         ├── 04_bills.sql
+        
         └── 05_stock_log.sql
+
 🚀 How to Run
+
 1. Start All Containers
+
 docker compose up -d --build
 2. Access Frontend
 http://localhost/
