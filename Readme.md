@@ -117,13 +117,21 @@ Login → JWT issued
 Every request → Authorization: Bearer <token>
 Middleware verifies + injects user
 🛂 Role Permissions
+
 Feature	Admin	Staff
+
 View Dashboard	✔	✔
+
 Bills(Create/View)	✔	✔
+
 Items CRUD	    ✔	✖
+
 Adjust Stock	✔	✖
+
 Customers CRUD	✔	✔
+
 Manage Users	✔	✖
+
 Access /setup	✔	✖
 🧬 Database Auto-Schema
 
