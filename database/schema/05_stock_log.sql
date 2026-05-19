@@ -1,0 +1,8 @@
+CREATE TABLE stock_log (
+  id SERIAL PRIMARY KEY,
+  item_id INTEGER NOT NULL REFERENCES items(id) ON DELETE CASCADE,
+  change INTEGER NOT NULL,
+  reason VARCHAR(100),
+  created_by INTEGER REFERENCES users(id) ON DELETE SET NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
