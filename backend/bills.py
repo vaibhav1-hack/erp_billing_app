@@ -36,7 +36,7 @@ def get_bill(bill_id: int, user=Depends(get_current_user)):
     conn = get_connection()
     cur = conn.cursor()
     cur.execute("""
-        SELECT b.*, c.name AS customer_name
+        SELECT b.*, c.name AS customer_name, c.phone AS customer_phone, c.email AS customer_email
         FROM bills b
         LEFT JOIN customers c ON c.id = b.customer_id
         WHERE b.id = %s

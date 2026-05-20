@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
+
 const statusColor = (status) => {
   if (status === "paid") return "bg-emerald-100 text-emerald-700";
   if (status === "cancelled") return "bg-red-100 text-red-600";
@@ -50,6 +51,15 @@ export default function Bills() {
                 </td>
                 <td className="p-4 text-right font-medium text-gray-800">₹{parseFloat(b.total).toLocaleString("en-IN")}</td>
                 <td className="p-4 text-right text-gray-400">{new Date(b.created_at).toLocaleDateString()}</td>
+               <td className="p-4 text-right">
+  <Link to={`/bills/${b.id}`} className="text-xs text-blue-500 hover:underline mr-3">View</Link>
+  {b.status === "draft" && (
+    <>
+      <button onClick={() => updateStatus(b.id, "paid")} className="text-xs text-emerald-500 hover:underline mr-3">Mark Paid</button>
+      <button onClick={() => updateStatus(b.id, "cancelled")} className="text-xs text-red-400 hover:underline">Cancel</button>
+    </>
+  )}
+</td>
                 <td className="p-4 text-right">
                   {b.status === "draft" && (
                     <>

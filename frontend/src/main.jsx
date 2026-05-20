@@ -6,7 +6,7 @@ import { AuthProvider, useAuth } from "./context/AuthContext";
 import Login from "./pages/Login";
 import Setup from "./pages/Setup";
 
-
+import ViewBill from "./pages/ViewBill";
 import Layout from "./components/Layout";
 import Dashboard from "./pages/Dashboard";
 import Bills from "./pages/Bills";
@@ -58,6 +58,7 @@ function App() {
             <Route path="items" element={<Items />} />
             <Route path="customers" element={<Customers />} />
             <Route path="stock" element={<Stock />} />
+            <Route path="bills/:id" element={<ViewBill />} />
             // inside Routes
             <Route path="/setup" element={<Setup />} />
             <Route path="users" element={

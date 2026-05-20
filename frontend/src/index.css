@@ -5,3 +5,9 @@ body {
   background-color: #f5f6fa;
   color: #1a1a2e;
 }
+@media print {
+  body { background: white !important; }
+  .print\:hidden { display: none !important; }
+  aside { display: none !important; }
+  main { padding: 0 !important; }
+}
