@@ -8,11 +8,13 @@ export default function Layout() {
   const nav = [
     { to: "/", label: "🏠 Dashboard", roles: ["admin", "staff"] },
     { to: "/bills", label: "🧾 Bills", roles: ["admin", "staff"] },
+    { to: "/due", label: "🔴 Due Bills", roles: ["admin", "staff"] },
     { to: "/items", label: "📦 Items", roles: ["admin", "staff"] },
     { to: "/customers", label: "👥 Customers", roles: ["admin", "staff"] },
     { to: "/stock", label: "📊 Stock", roles: ["admin", "staff"] },
     { to: "/users", label: "👤 Users", roles: ["admin"] },
     { to: "/profits", label: "💰 Profits", roles: ["admin"] }
+
   ];
 
   const filtered = nav.filter(n => n.roles.includes(user?.role));

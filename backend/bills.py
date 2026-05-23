@@ -23,7 +23,7 @@ def get_bills(user=Depends(get_current_user)):
     conn = get_connection()
     cur = conn.cursor()
     cur.execute("""
-        SELECT b.*, c.name AS customer_name
+        SELECT b.*, c.name AS customer_name, c.email AS customer_email, c.phone AS customer_phone
         FROM bills b
         LEFT JOIN customers c ON c.id = b.customer_id
         ORDER BY b.created_at DESC
@@ -80,7 +80,6 @@ def create_bill(body: BillBody, user=Depends(get_current_user)):
                     (li.item_id, -li.quantity, "bill created", user["id"])
                 )
 
-            # Save profit for ALL items regardless of item_id
             profit = (li.price - li.purchase_price) * li.quantity
             cur.execute(
                 "INSERT INTO profits (bill_id, item_id, item_name, quantity, purchase_price, sales_price, profit) VALUES (%s, %s, %s, %s, %s, %s, %s)",

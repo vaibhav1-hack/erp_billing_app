@@ -14,6 +14,7 @@ import NewBill from "./pages/NewBill";
 import Items from "./pages/Items";
 import Customers from "./pages/Customers";
 import Stock from "./pages/Stock";
+import DueBills from "./pages/DueBills";
 import CustomerDetail from "./pages/CustomerDetail";
 import ManageUsers from "./pages/ManageUsers";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -51,6 +52,7 @@ function Inner() {
         <Route path="bills/:id" element={<ViewBill />} />
         <Route path="items" element={<Items />} />
         <Route path="customers" element={<Customers />} />
+        <Route path="due" element={<DueBills />} />
         <Route path="stock" element={<Stock />} />
         <Route path="profits" element={<Profits />} />
         <Route path="users" element={
