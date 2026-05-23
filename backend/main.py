@@ -6,6 +6,7 @@ from fastapi.security import HTTPBearer
 from fastapi.openapi.utils import get_openapi
 from customers import router as customers_router
 from bills import router as bills_router
+from profits import router as profits_router
 
 from stock import router as stock_router
 
@@ -16,6 +17,7 @@ app = FastAPI(
     docs_url="/docs",
     swagger_ui_parameters={"persistAuthorization": True}
 )
+app.include_router(profits_router, prefix="/api/profits")
 app.include_router(stock_router, prefix="/api/stock")
 app.include_router(customers_router, prefix="/api/customers")
 app.include_router(bills_router, prefix="/api/bills")

@@ -21,6 +21,16 @@ def get_customers(user=Depends(get_current_user)):
     conn.close()
     return customers
 
+@router.get("/{customer_id}")
+def get_customer(customer_id: int, user=Depends(get_current_user)):
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM customers WHERE id = %s", (customer_id,))
+    customer = cur.fetchone()
+    conn.close()
+    if not customer:
+        raise HTTPException(status_code=404, detail="Customer not found")
+    return customer
 @router.post("/")
 def create_customer(body: CustomerBody, user=Depends(get_current_user)):
     conn = get_connection()

@@ -12,6 +12,7 @@ export default function Layout() {
     { to: "/customers", label: "👥 Customers", roles: ["admin", "staff"] },
     { to: "/stock", label: "📊 Stock", roles: ["admin", "staff"] },
     { to: "/users", label: "👤 Users", roles: ["admin"] },
+    { to: "/profits", label: "💰 Profits", roles: ["admin"] }
   ];
 
   const filtered = nav.filter(n => n.roles.includes(user?.role));

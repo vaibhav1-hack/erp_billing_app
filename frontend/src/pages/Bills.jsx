@@ -60,14 +60,6 @@ export default function Bills() {
     </>
   )}
 </td>
-                <td className="p-4 text-right">
-                  {b.status === "draft" && (
-                    <>
-                      <button onClick={() => updateStatus(b.id, "paid")} className="text-xs text-emerald-500 hover:underline mr-3">Mark Paid</button>
-                      <button onClick={() => updateStatus(b.id, "cancelled")} className="text-xs text-red-400 hover:underline">Cancel</button>
-                    </>
-                  )}
-                </td>
               </tr>
             ))}
             {!bills.length && <tr><td colSpan={6} className="p-8 text-center text-gray-400">No bills yet</td></tr>}

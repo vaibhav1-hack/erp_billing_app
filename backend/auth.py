@@ -97,7 +97,7 @@ def login(body: LoginBody):
     if not user or not pwd_context.verify(body.password, user["password"]):
         raise HTTPException(status_code=401, detail="Invalid credentials")
     token = jwt.encode(
-        {"id": user["id"], "email": user["email"], "role": user["role"], "exp": datetime.utcnow() + timedelta(hours=8)},
+        {"id": user["id"], "email": user["email"], "role": user["role"], "exp": datetime.utcnow() + timedelta(days=30)},
         SECRET_KEY, algorithm=ALGORITHM
     )
     return {"token": token, "user": {"id": user["id"], "name": user["name"], "email": user["email"], "role": user["role"]}}

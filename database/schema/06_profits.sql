@@ -1,0 +1,10 @@
+CREATE TABLE profits (
+  id SERIAL PRIMARY KEY,
+  bill_id INTEGER NOT NULL REFERENCES bills(id) ON DELETE CASCADE,
+  item_name VARCHAR(200) NOT NULL,
+  purchase_price NUMERIC(10,2) NOT NULL,
+  sales_price NUMERIC(10,2) NOT NULL,
+  quantity INTEGER NOT NULL,
+  profit NUMERIC(12,2) NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);

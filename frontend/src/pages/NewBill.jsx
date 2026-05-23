@@ -11,7 +11,7 @@ export default function NewBill() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [customerDetails, setCustomerDetails] = useState({ phone: "", email: "" });
   const [notes, setNotes] = useState("");
-  const [lines, setLines] = useState([{ item_id: "", name: "", price: "", quantity: 1 }]);
+  const [lines, setLines] = useState([{ item_id: "", name: "", price: "", purchase_price: "", quantity: 1 }]);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -65,6 +65,7 @@ export default function NewBill() {
           item_id: l.item_id || null,
           name: l.name,
           price: parseFloat(l.price),
+          purchase_price: parseFloat(l.purchase_price) || 0,
           quantity: parseInt(l.quantity),
         })),
       });
@@ -145,6 +146,17 @@ export default function NewBill() {
       {/* Line Items */}
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 mb-4">
         <div className="font-semibold text-gray-700 mb-4">Line Items</div>
+
+        {/* Column Labels */}
+        <div className="grid grid-cols-12 gap-2 mb-2">
+          <div className="col-span-4 text-xs text-gray-400 font-medium">Item</div>
+          <div className="col-span-2 text-xs text-gray-400 font-medium">Name</div>
+          <div className="col-span-2 text-xs text-gray-400 font-medium">Purchase ₹</div>
+          <div className="col-span-2 text-xs text-gray-400 font-medium">Sales ₹</div>
+          <div className="col-span-1 text-xs text-gray-400 font-medium">Qty</div>
+          <div className="col-span-1"></div>
+        </div>
+
         <div className="space-y-3">
           {lines.map((line, i) => (
             <div key={i} className="grid grid-cols-12 gap-2 items-center">
@@ -155,15 +167,19 @@ export default function NewBill() {
                   {items.map(it => <option key={it.id} value={it.id}>{it.name} (stock: {it.stock})</option>)}
                 </select>
               </div>
-              <div className="col-span-3">
+              <div className="col-span-2">
                 <input className="w-full border border-gray-200 rounded-lg px-2 py-1.5 text-xs outline-none focus:border-blue-400 bg-gray-50"
                   placeholder="Name" value={line.name} onChange={e => setLine(i, "name", e.target.value)} />
               </div>
               <div className="col-span-2">
                 <input type="number" className="w-full border border-gray-200 rounded-lg px-2 py-1.5 text-xs outline-none focus:border-blue-400 bg-gray-50"
-                  placeholder="Price" value={line.price} onChange={e => setLine(i, "price", e.target.value)} />
+                  placeholder="Purchase ₹" value={line.purchase_price} onChange={e => setLine(i, "purchase_price", e.target.value)} />
               </div>
               <div className="col-span-2">
+                <input type="number" className="w-full border border-gray-200 rounded-lg px-2 py-1.5 text-xs outline-none focus:border-blue-400 bg-gray-50"
+                  placeholder="Sales ₹" value={line.price} onChange={e => setLine(i, "price", e.target.value)} />
+              </div>
+              <div className="col-span-1">
                 <input type="number" min="1" className="w-full border border-gray-200 rounded-lg px-2 py-1.5 text-xs outline-none focus:border-blue-400 bg-gray-50"
                   placeholder="Qty" value={line.quantity} onChange={e => setLine(i, "quantity", e.target.value)} />
               </div>
@@ -174,7 +190,7 @@ export default function NewBill() {
             </div>
           ))}
         </div>
-        <button onClick={() => setLines([...lines, { item_id: "", name: "", price: "", quantity: 1 }])}
+        <button onClick={() => setLines([...lines, { item_id: "", name: "", price: "", purchase_price: "", quantity: 1 }])}
           className="mt-4 text-xs text-blue-500 hover:underline">+ Add Line</button>
       </div>
 
@@ -198,4 +214,4 @@ export default function NewBill() {
       </div>
     </div>
   );
-}
+} 

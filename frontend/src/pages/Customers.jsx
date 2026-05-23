@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-
 const empty = { name: "", email: "", phone: "", address: "" };
+import { useNavigate } from "react-router-dom";
+
 
 export default function Customers() {
-  const [customers, setCustomers] = useState([]);
+  const [customers, setCustomers] = useState([]); 
   const [form, setForm] = useState(empty);
   const [editing, setEditing] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const navigate = useNavigate();
+
 
   const load = () => axios.get("/api/customers/").then(r => setCustomers(r.data));
   useEffect(() => { load(); }, []);
@@ -64,9 +67,15 @@ export default function Customers() {
             {c.phone && <div className="text-sm text-gray-500 mb-1">📞 {c.phone}</div>}
             {c.email && <div className="text-sm text-gray-500 mb-1">✉ {c.email}</div>}
             {c.address && <div className="text-xs text-gray-400 mt-2">{c.address}</div>}
-            <button onClick={() => startEdit(c)} className="mt-3 text-xs text-blue-500 hover:underline">Edit</button>
+             <div className="flex gap-3 mt-3">
+  <button onClick={() => navigate(`/customers/${c.id}`)}
+    className="text-xs text-blue-500 hover:underline">View</button>
+  <button onClick={() => startEdit(c)} className="text-xs text-gray-400 hover:underline">Edit</button>
+</div>
           </div>
+          
         ))}
+
         {!customers.length && <p className="text-gray-400 col-span-3 text-center py-8">No customers yet</p>}
       </div>
     </div>

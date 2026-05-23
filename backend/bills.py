@@ -10,6 +10,7 @@ class BillItem(BaseModel):
     item_id: Optional[int] = None
     name: str
     price: float
+    purchase_price: float = 0
     quantity: int
 
 class BillBody(BaseModel):
@@ -78,7 +79,16 @@ def create_bill(body: BillBody, user=Depends(get_current_user)):
                     "INSERT INTO stock_log (item_id, change, reason, created_by) VALUES (%s, %s, %s, %s)",
                     (li.item_id, -li.quantity, "bill created", user["id"])
                 )
+
+            # Save profit for ALL items regardless of item_id
+            profit = (li.price - li.purchase_price) * li.quantity
+            cur.execute(
+                "INSERT INTO profits (bill_id, item_id, item_name, quantity, purchase_price, sales_price, profit) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                (bill["id"], li.item_id, li.name, li.quantity, li.purchase_price, li.price, profit)
+            )
+
             total += li.price * li.quantity
+
         cur.execute("UPDATE bills SET total = %s WHERE id = %s", (total, bill["id"]))
         conn.commit()
         cur.execute("SELECT * FROM bills WHERE id = %s", (bill["id"],))
