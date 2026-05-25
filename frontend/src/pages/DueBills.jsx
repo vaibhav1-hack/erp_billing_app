@@ -80,4 +80,4 @@ export default function DueBills() {
       </div>
     </div>
   );
-}
+}   
